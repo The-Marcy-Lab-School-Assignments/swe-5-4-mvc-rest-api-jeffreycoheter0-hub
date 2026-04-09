@@ -1,4 +1,5 @@
 const express = require('express');
+const { url } = require('inspector');
 const path = require('path');
 const { takeCoverage } = require('v8');
 
@@ -50,18 +51,18 @@ app.get('/api/todos', listTodos);
 // TODO: GET /api/todos/:id
 // Response: 200, single todo object
 // Error: 404 if no todo with that id
-const singleTask = (req, res) => {
+const findTask = (req, res) => {
   const { id } = req.params;
   const task = todos.find(task => task.id === Number(id));
 
-  if (!id) {
+  if (!task) {
     res.status(404).send({
       message: `No task with the id ${id}`
     });
   }
   res.send(task);
 };
-app.get('/api/todos/:id', singleTask);
+app.get('/api/todos/:id', findTask);
 
 
 // TODO: POST /api/todos
@@ -78,23 +79,58 @@ const createTask = (req, res) => {
   }
 
   const newTask = { taskName, id: getId() };
-  res.send(todos.push(newTask));
+  todos.push(newTask);
+
+  res.status(201).send(newTask);
 };
+app.post('/api/todos', createTask);
 
 // TODO: PATCH /api/todos/:id
 // Request body: { isDone }
 // Response: 200, the updated todo object
 // Error: 404 if no todo with that id
+const updateTask = (req, res) => {
+  const { isDone } = req.body;
+
+  const { id } = req.params;
+  const task = todos.find((task) => task.id === Number(id));
+
+  if (!task) {
+    return res.status(404).send({ message: `No task with the id ${id}` });
+  }
+
+  task.task = isDone;
+  res.send(task);
+};
+app.patch('/api/todos/:id', updateTask);
 
 
 // TODO: DELETE /api/todos/:id
 // Response: 204, no content
 // Error: 404 if no todo with that id
+const deleteTask = (req, res) => {
+  const { id } = req.params;
 
+  const taskIndex = todos.findIndex((task) => task.id === Number(id));
+  if (taskIndex < 0) {
+    return res.status(404).send({ message: `No task with the id ${id}` });
+  }
+
+  todos.splice(taskIndex, 1);
+  res.sendStatus(204);
+};
+app.delete('/api/todos/:id', deleteTask);
 
 // TODO: Catch-all handler — send a 404 JSON error for unmatched /api routes,
 // or serve index.html for all other routes (SPA fallback)
-
+app.use((req, res) => {
+  if (req.originalUrl.startsWith('/api')) {
+    return res.status(404).json({
+      message: `Error: Not found ${url}`
+    });
+  }
+  res.sendFile(path.join(pathToFrontend, 'index.html'));
+});
 
 const port = 8080;
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

@@ -1,6 +1,6 @@
 # swe-5-5-mvc-rest-api
 
-Deployment Link: <<<<<< PUT YOUR DEPLOYMENT LINK HERE >>>>>>
+Deployment Link: <<<<<< (https://swe-5-4-mvc-rest-api-jeffreycoheter0-hub.onrender.com) >>>>>>
 
 In this assignment, you will build a **Todo Tracker** REST API in two parts:
 
@@ -58,31 +58,31 @@ Your grade on Part 1 will be determined by the number of requirements you comple
 
 **`GET /api/todos`**
 
-- [ ] Returns a `200` status and an array of all todos
+- [x] Returns a `200` status and an array of all todos
 
 **`GET /api/todos/:id`**
 
-- [ ] Returns a `200` status and the todo with the matching id
-- [ ] Returns a `404` status if no todo has that id
+- [x] Returns a `200` status and the todo with the matching id
+- [x] Returns a `404` status if no todo has that id
 
 **`POST /api/todos`**
 
-- [ ] Returns a `201` status and the newly created todo
-- [ ] Returns a `400` status if `task` is missing from the request body
+- [x] Returns a `201` status and the newly created todo
+- [x] Returns a `400` status if `task` is missing from the request body
 
 **`PATCH /api/todos/:id`**
 
-- [ ] Returns a `200` status and the updated todo
-- [ ] Returns a `404` status if no todo has that id
+- [x] Returns a `200` status and the updated todo
+- [x] Returns a `404` status if no todo has that id
 
 **`DELETE /api/todos/:id`**
 
-- [ ] Returns a `204` status and no content
-- [ ] Returns a `404` status if no todo has that id
+- [x] Returns a `204` status and no content
+- [x] Returns a `404` status if no todo has that id
 
 **Catch-all**
 
-- [ ] A catch-all handler returns a `404` status for any unmatched route
+- [x] A catch-all handler returns a `404` status for any unmatched route
 
 ### Step 1 — Start the Server
 
@@ -151,22 +151,22 @@ Your grade on Part 2 will be determined by the number of requirements you comple
 
 **Model Requirements**
 
-- [ ] `server/models/todoModel.js` exists with a `todos` array only accessible within the file (not exported)
-- [ ] `server/models/todoModel.js` exports methods whose sole responsibility is to manage interactions with the `todos` array
+- [x] `server/models/todoModel.js` exists with a `todos` array only accessible within the file (not exported)
+- [x] `server/models/todoModel.js` exports methods whose sole responsibility is to manage interactions with the `todos` array
 
 **Controller Requirements**
 
-- [ ] `server/controllers/todoControllers.js` exists and imports `todoModel`
-- [ ] `server/controllers/todoControllers.js` exports methods whose sole responsibility is to parse requests, invoke `todoModel` methods, and send a response
+- [x] `server/controllers/todoControllers.js` exists and imports `todoModel`
+- [x] `server/controllers/todoControllers.js` exports methods whose sole responsibility is to parse requests, invoke `todoModel` methods, and send a response
 
 **`index.js` Requirements**
 
-- [ ] `server/index.js` imports and uses `todoControllers`
-- [ ] `server/index.js` contains only middleware and route registrations (no data or business logic)
+- [x] `server/index.js` imports and uses `todoControllers`
+- [x] `server/index.js` contains only middleware and route registrations (no data or business logic)
 
 **Deployment**
 
-- [ ] Your app is deployed to Render and the link is added to the top of this README
+- [x] Your app is deployed to Render and the link is added to the top of this README
 
 ### Step 3 — Create the Model
 

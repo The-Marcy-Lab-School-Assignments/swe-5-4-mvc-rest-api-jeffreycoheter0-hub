@@ -1,7 +1,5 @@
 const express = require('express');
-const { url } = require('inspector');
 const path = require('path');
-const { takeCoverage } = require('v8');
 
 const todoControllers = require('../server/controllers/todoControllers.js');
 const app = express();
@@ -30,6 +28,10 @@ app.get('/api/todos/:id', todoControllers.findTodo);
 app.post('/api/todos', todoControllers.createTodo);
 app.patch('/api/todos/:id', todoControllers.updateTodo);
 app.delete('/api/todos/:id', todoControllers.deleteTodo);
+
+app.use((req, res) => {
+  res.status(404).send({ message: `Error: Not found ${req.originalUrl}` });
+});
 
 const port = 8080;
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

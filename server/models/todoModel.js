@@ -23,16 +23,16 @@ module.exports.find = (id) => {
 
 // The newly created todo
 module.exports.create = (task) => {
-    const newTask = { task, id: getId() };
+    const newTask = { id: getId(), task, isDone: false };
     todos.push(newTask);
-    return newTask;
+    return { ...newTask };
 };
 
 // Updated todo, or null
 module.exports.update = (id, changes) => {
     const task = todos.find((task) => task.id === id);
     if (!task) return null;
-    task.task = changes;
+    Object.assign(task, changes);
     return { ...task };
 };
 

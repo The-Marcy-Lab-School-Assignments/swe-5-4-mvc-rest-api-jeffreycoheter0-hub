@@ -21,26 +21,20 @@ module.exports.findTodo = (req, res) => {
 };
 
 module.exports.createTodo = (req, res) => {
-    const { taskName } = req.body;
-    if (!taskName) {
+    const { task } = req.body;
+    if (!task) {
         return res.status(400).send({ message: 'Invalid task name' });
     }
 
-    const newTask = todosModel.create(taskName);
-    res.send(newTask);
+    const newTask = todosModel.create(task);
+    res.status(201).send(newTask);
 };
 
 module.exports.updateTodo = (req, res) => {
     const { id } = req.params;
-    const { taskName } = req.body;
+    const changes = req.body;
 
-    if (!taskName) {
-        return res.status(400).send({
-            message: 'Invalid task name'
-        });
-    }
-
-    const updatedTask = todosModel.update(Number(id), taskName);
+    const updatedTask = todosModel.update(Number(id), changes);
 
     if (!updatedTask) {
         return res.status(404).send({
@@ -53,12 +47,12 @@ module.exports.updateTodo = (req, res) => {
 module.exports.deleteTodo = (req, res) => {
     const { id } = req.params;
 
-    if (!id) {
+    const deleted = todosModel.destroy(Number(id));
+
+    if (!deleted) {
         return res.status(404).send({
             message: `No task with the id ${id}`
         });
     }
-
-    const deletedTask = todosModel.destroy(Number(id));
-    res.send(deletedTask);
+    res.status(204).send();
 };

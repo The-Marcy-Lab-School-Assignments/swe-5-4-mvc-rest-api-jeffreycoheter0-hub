@@ -166,7 +166,7 @@ Your grade on Part 2 will be determined by the number of requirements you comple
 
 **Deployment**
 
-- [ ] Your app is deployed to Render and the link is added to the top of this README
+- [x] Your app is deployed to Render and the link is added to the top of this README
 
 ### Step 3 — Create the Model
 
